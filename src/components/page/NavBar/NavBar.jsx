@@ -14,13 +14,7 @@ import {
   User,
 } from './NavBar.styled';
 import avatar from 'components/images/avatar.png';
-import {
-  ImAddressBook,
-  ImUser,
-  ImHangouts,
-  ImCalendar,
-  ImExit,
-} from 'react-icons/im';
+import { ImAddressBook, ImUser, ImCalendar, ImExit } from 'react-icons/im';
 
 export const NavBar = () => {
   return (
