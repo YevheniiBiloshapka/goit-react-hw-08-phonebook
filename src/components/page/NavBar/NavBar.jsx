@@ -46,7 +46,7 @@ export const NavBar = () => {
           <Info>
             <Date>
               <ImCalendar />
-              October 31,2022
+              {/* {date} */}
             </Date>
             <User>
               <img src={avatar} alt="Avatar" />{' '}
