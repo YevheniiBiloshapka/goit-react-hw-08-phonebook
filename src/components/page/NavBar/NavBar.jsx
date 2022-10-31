@@ -15,8 +15,11 @@ import {
 } from './NavBar.styled';
 import avatar from 'components/images/avatar.png';
 import { ImAddressBook, ImUser, ImCalendar, ImExit } from 'react-icons/im';
+import { getCurrentDate } from 'components/utils/getCurrentDate';
 
 export const NavBar = () => {
+  const date = getCurrentDate();
+
   return (
     <Wrapper>
       <SideBar>
@@ -46,7 +49,7 @@ export const NavBar = () => {
           <Info>
             <Date>
               <ImCalendar />
-              {/* {date} */}
+              {date}
             </Date>
             <User>
               <img src={avatar} alt="Avatar" />{' '}

@@ -1,5 +1,10 @@
 export function getCurrentDate() {
-  const start = Date.now();
-  return start;
+  var today = new Date();
+
+  var options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  return today.toLocaleString('en-US', options);
 }
-console.log(getCurrentDate());
