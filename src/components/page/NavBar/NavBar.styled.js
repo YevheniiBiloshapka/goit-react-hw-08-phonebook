@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 
 export const SideBar = styled.aside`
   display: flex;
-  position: relative;
+  position: fixed;
   flex-direction: column;
   width: 236px;
   height: 100vh;
@@ -91,7 +91,7 @@ export const Box = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
-  padding: 16px 48px;
+  padding: 16px 48px 16px 284px;
   gap: 32px;
 `;
 

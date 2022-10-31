@@ -1,14 +1,16 @@
-import {} from './UserInfo.styled';
+import { Wrapper } from './UserInfo.styled';
+import { Profile } from './profileSocial/profileSocial';
+import { UploadStats } from './UploadStats/UploadStats';
+import { Transaction } from './TransactionHistory/TransactionHistory';
 
 export const UserInfo = () => {
   return (
     <>
-      <div>
-        <div>info</div>
-      </div>
-      <div>
-        <h2>Upload stats</h2>
-      </div>
+      <Wrapper>
+        <Profile />
+        <UploadStats />
+      </Wrapper>
+      <Transaction />
     </>
   );
 };
