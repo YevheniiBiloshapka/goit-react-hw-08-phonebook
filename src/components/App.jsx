@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { LoginIn } from './page/LogIn/LogIn';
 import { SignIn } from 'components/page/SignIn/SignIn';
 import { NavBar } from 'components/page/NavBar/NavBar';
+import { UserInfo } from 'components/page/UserInfo/UserInfo';
 import Phonebook from './page/Phonebook/Phonebook';
 import Loyout from './page/Loyout/Loyout';
 
@@ -15,7 +16,7 @@ export const App = () => {
         </Route>
         <Route path="/nav" element={<NavBar />}>
           <Route path="phonebook" element={<Phonebook />} />
-          <Route path="userInfo" element={<div>User info</div>} />
+          <Route path="userInfo" element={<UserInfo />} />
         </Route>
       </Routes>
     </>
