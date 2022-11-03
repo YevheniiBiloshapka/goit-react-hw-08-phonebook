@@ -1,3 +1,8 @@
+import {
+  selectorEmail,
+  selectorName,
+} from 'components/redux/auth/auth-selector';
+import { useSelector } from 'react-redux';
 import user from 'services/user.json';
 import {
   Card,
@@ -5,45 +10,44 @@ import {
   Description,
   Avatar,
   Name,
-  Stats,
+  StatsList,
   StatsItem,
   Label,
   Quantity,
   Box,
 } from './profileSocial.styled';
+import { randomAvatar } from 'components/randomAvatar/randomAvatar';
 
-const { username, tag, location, avatar, stats } = user;
 export const Profile = () => {
+  const name = useSelector(selectorName);
+  const email = useSelector(selectorEmail);
+  const contacts = useSelector(state => state.contacts.contacts);
+
   return (
     <>
       <Card key="username">
         <Description>
-          <Avatar src={avatar} alt="User avatar" className="avatar" />
+          <Avatar src={randomAvatar} alt="User avatar" className="avatar" />
           <Box>
-            <Name>{username}</Name>
-            <ProfileDescr>@{tag}</ProfileDescr>
-            <ProfileDescr>{location}</ProfileDescr>
+            <Name>{name}</Name>
+            <ProfileDescr>{email}</ProfileDescr>
           </Box>
         </Description>
       </Card>
-      <Stats>
+      <StatsList>
         <StatsItem>
           <Label>Followers</Label>
-          <Quantity>{stats.followers}</Quantity>
-        </StatsItem>
-        <StatsItem>
-          <Label>Views</Label>
-          <Quantity>{stats.views}</Quantity>
-        </StatsItem>
-        <StatsItem>
-          <Label>Likes</Label>
-          <Quantity>{stats.likes}</Quantity>
+          <Quantity>{user.stats.followers}</Quantity>
         </StatsItem>
         <StatsItem>
           <Label>Contacts</Label>
-          <Quantity>{13}</Quantity>
+          <Quantity>{contacts.length}</Quantity>
         </StatsItem>
-      </Stats>
+        <StatsItem>
+          <Label>Likes</Label>
+          <Quantity>{user.stats.likes}</Quantity>
+        </StatsItem>
+      </StatsList>
     </>
   );
 };

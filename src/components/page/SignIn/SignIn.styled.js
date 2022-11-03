@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Field, Form } from 'formik';
+
 export const Box = styled.div`
   display: flex;
   width: 100%;
@@ -7,7 +7,7 @@ export const Box = styled.div`
   justify-content: center;
   align-items: center;
 `;
-export const FormBox = styled(Form)`
+export const FormBox = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,6 +27,17 @@ export const FormBox = styled(Form)`
   }
 `;
 
+export const InputBox = styled.div`
+  display: flex;
+  gap: 20px;
+  & label:nth-child(1) {
+    width: 190px;
+  }
+  & label:nth-child(2) {
+    width: 190px;
+  }
+`;
+
 export const Label = styled.label`
   display: flex;
   flex-direction: column;
@@ -41,7 +52,7 @@ export const Label = styled.label`
   }
 `;
 
-export const Input = styled(Field)`
+export const Input = styled.input`
   background: #f4f4f3;
   border: 1px solid #c5c5c5;
   border-radius: 6px;

@@ -27,6 +27,7 @@ export const Avatar = styled.img`
 export const Box = styled.div`
   display: flex;
   flex-direction: column;
+  width: 150px;
   gap: 5px;
   font-weight: 400;
   font-size: 14px;
@@ -45,13 +46,11 @@ export const Name = styled.p`
 export const ProfileDescr = styled.p`
   margin-bottom: 0;
 `;
-export const Stats = styled.ul`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
 
-  width: 544px;
+export const StatsList = styled.ul`
+  display: grid;
+  grid-template: repeat(1, 100px) / repeat(3, 1fr);
+  align-items: stretch;
   overflow: hidden;
   border-radius: 8px;
 
@@ -61,9 +60,10 @@ export const StatsItem = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 20px 18px 17px;
+  padding: 24px 18px 13px;
 
   min-width: 100px;
+  max-width: 100%;
   background: #e8fbff;
   border-bottom: 5px solid #85c3ff;
   &:nth-child(2) {

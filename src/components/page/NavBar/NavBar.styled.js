@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import logo from 'components/images/logo.svg';
 import NavActive from 'components/images/NavActive.svg';
+import imgBgNavBar from 'components/images/bgNavBar.png';
 import { NavLink } from 'react-router-dom';
 
 export const Wrapper = styled.div`
@@ -19,12 +20,14 @@ export const SideBar = styled.aside`
 
   color: #fff;
   background: #324a98;
+  background-image: url(${imgBgNavBar});
+  background-size: cover;
   border-radius: 0px 30px 30px 0px;
 `;
 
 export const Logo = styled.div`
-  width: 100px;
-  height: 30px;
+  width: 130px;
+  height: 39px;
   margin: 33px 0 40px 40px;
 
   background-image: url(${logo});

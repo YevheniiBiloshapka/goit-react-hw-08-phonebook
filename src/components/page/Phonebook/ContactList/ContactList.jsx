@@ -1,47 +1,34 @@
-import {
-  List,
-  ListItem,
-  Button,
-  Label,
-  Input,
-  Box,
-} from './ContactList.styled';
-import { ImBin } from 'react-icons/im';
-import { nanoid } from 'nanoid';
+import { Box, Error } from './ContactList.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { onChangeFilter } from 'components/redux/contacts/contacts-filter.slice';
+import { Spiner } from 'components/Spiner/spiner';
+import { List } from './ListItem/ListItem';
+import { Filter } from './Filter/Filter';
 
-export const ContactList = () => {
+export const ContactList = ({ contacts }) => {
+  const dispatch = useDispatch();
+  const filter = useSelector(state => state.filter.filter);
+  const isLoading = useSelector(state => state.contacts.isLoading);
+
+  const onChangeInput = e => {
+    const value = e.currentTarget.value;
+    dispatch(onChangeFilter(value.toLowerCase()));
+  };
+
+  const visualContacts = contacts.filter(({ name }) =>
+    name.toLowerCase().includes(filter)
+  );
+
   return (
     <Box>
       <h2>Contacts</h2>
-      <Label htmlFor="">
-        <p>Find contacts by name</p>
-        <Input type="text" id="filter" placeholder="Enter name"></Input>
-      </Label>
-      <List>
-        {visualContacts.map(({ id, name, number }) => (
-          <ListItem key={id}>
-            <p>
-              {name}: <span>{number}</span>
-            </p>
-            <Button>
-              <ImBin />
-            </Button>
-          </ListItem>
-        ))}
-      </List>
+      {isLoading && <Spiner />}
+      <Filter onChange={onChangeInput} />
+
+      {Object.keys(contacts).length === 0 && (
+        <Error>❌ Your query did not find anything</Error>
+      )}
+      <List contacts={visualContacts} />
     </Box>
   );
 };
-
-const visualContacts = [
-  { id: nanoid(), name: 'Rosie Simpson', number: '459-12-56' },
-  { id: nanoid(), name: 'Hermione Kline', number: '443-89-12' },
-  { id: nanoid(), name: 'Eden Clements', number: '645-17-79' },
-  { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
-  { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
-  { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
-  { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
-  { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
-  { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
-  { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
-];

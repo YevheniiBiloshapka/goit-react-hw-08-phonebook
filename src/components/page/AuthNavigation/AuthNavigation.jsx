@@ -5,10 +5,10 @@ import {
   Button,
   Navigation,
   Wrapper,
-} from './Loyout.styled.';
+} from './AuthNavigation.styled.';
 import { Outlet } from 'react-router-dom';
 
-const Loyout = () => {
+const AuthNavigation = () => {
   return (
     <Wrapper>
       <SideBar>
@@ -19,7 +19,7 @@ const Loyout = () => {
 
         <Navigation>
           <Button to="/" end>
-            Log In
+            Login
           </Button>
           <Button to="signin">Sign In</Button>
         </Navigation>
@@ -29,4 +29,4 @@ const Loyout = () => {
   );
 };
 
-export default Loyout;
+export default AuthNavigation;

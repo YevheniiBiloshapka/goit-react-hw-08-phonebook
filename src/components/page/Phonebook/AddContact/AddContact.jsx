@@ -1,11 +1,41 @@
 import { Button, Input, Label, FormBox, Error, Box } from './AddContact.styled';
 import { Formik, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContacts } from 'components/redux/contacts/contacts-operation';
+import { messageError } from 'components/messageNotify/message';
+import { InputNumber } from '../../../InputNumber/InputNumber';
 
 export const AddContact = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.contacts);
+
+  const handleSubmit = ({ name, number }, { resetForm }) => {
+    const newContact = {
+      name: name,
+      number: number,
+    };
+    if (
+      contacts.some(
+        contact =>
+          contact.number.toLocaleLowerCase() === number.toLocaleLowerCase()
+      )
+    ) {
+      messageError(newContact);
+      return;
+    } else {
+      dispatch(addContacts(newContact));
+      resetForm();
+    }
+  };
   return (
     <Box>
       <h2>Phonebook</h2>
-      <Formik initialValues={initialValues}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={schema}
+      >
         <FormBox action="">
           <Label htmlFor="name">
             <p>Name</p>
@@ -20,19 +50,9 @@ export const AddContact = () => {
               {() => <Error>Name must be at least 4 characters</Error>}
             </ErrorMessage>
           </Label>
-
           <Label htmlFor="number">
             <p>Number</p>
-            <Input
-              type="tel"
-              name="number"
-              country="US"
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              required
-              maxLength="16"
-              placeholder="_(___)___-____"
-            />
+            <InputNumber />
           </Label>
           <Button type="submit">Add contact</Button>
         </FormBox>
@@ -45,3 +65,8 @@ const initialValues = {
   name: '',
   number: '',
 };
+
+let schema = Yup.object().shape({
+  name: Yup.string().min(4).max(32).required(),
+  number: Yup.string().required('Required'),
+});

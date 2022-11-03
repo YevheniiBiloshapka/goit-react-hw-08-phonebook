@@ -23,6 +23,21 @@ export const Title = styled.h2`
 
 export const StatList = styled.ul`
   display: flex;
+  & li:nth-child(1) {
+    background-color: #4cc6f5;
+  }
+  & li:nth-child(2) {
+    background-color: #d88ea9;
+  }
+  & li:nth-child(3) {
+    background-color: #a03df6;
+  }
+  & li:nth-child(4) {
+    background-color: #e54c65;
+  }
+  & li:nth-child(5) {
+    background-color: #20b8c2;
+  }
 `;
 
 export const Item = styled.li`
@@ -35,9 +50,9 @@ export const Item = styled.li`
 
   width: 130px;
   height: 46px;
-  background-color: ${() => {
+  /* background-color: ${() => {
     return '#' + Math.floor(Math.random() * 16777215).toString(16);
-  }};
+  }}; */
 `;
 export const Label = styled.span`
   font-weight: 400;

@@ -13,11 +13,20 @@ import {
   Date,
   User,
 } from './NavBar.styled';
-import avatar from 'components/images/avatar.png';
+import { randomAvatar } from 'components/randomAvatar/randomAvatar';
 import { ImAddressBook, ImUser, ImCalendar, ImExit } from 'react-icons/im';
 import { getCurrentDate } from 'components/utils/getCurrentDate';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectorEmail,
+  selectorName,
+} from 'components/redux/auth/auth-selector';
+import { logout } from 'components/redux/auth/auth-operation';
 
 export const NavBar = () => {
+  const name = useSelector(selectorName);
+  const email = useSelector(selectorEmail);
+  const dispatch = useDispatch();
   const date = getCurrentDate();
 
   return (
@@ -37,7 +46,7 @@ export const NavBar = () => {
               );
             })}
           </ul>
-          <Exit to={`/`}>
+          <Exit onClick={() => dispatch(logout())} to={`/`}>
             <ImExit />
             Log out
           </Exit>
@@ -45,15 +54,14 @@ export const NavBar = () => {
       </SideBar>
       <Box>
         <Header>
-          <h3>Hello, Alexey👋 </h3>
+          <h3>Hello, {name}👋 </h3>
           <Info>
             <Date>
               <ImCalendar />
               {date}
             </Date>
             <User>
-              <img src={avatar} alt="Avatar" />{' '}
-              <p>Alexeykonstantinov@gmail.com</p>
+              <img src={randomAvatar} alt="Avatar" /> <p>{email}</p>
             </User>
           </Info>
         </Header>
@@ -64,7 +72,6 @@ export const NavBar = () => {
 };
 
 const navigation = [
-  { link: '/nav/phonebook', name: 'Phonebook', icon: ImAddressBook },
-  { link: '/nav/userInfo', name: 'User info', icon: ImUser },
-  //   { link: '*', name: 'Feedback', icon: ImHangouts },
+  { link: '/auth', name: 'User info', icon: ImUser },
+  { link: '/auth/phonebook', name: 'Phonebook', icon: ImAddressBook },
 ];
