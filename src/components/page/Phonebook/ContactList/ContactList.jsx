@@ -5,7 +5,7 @@ import { Spiner } from 'components/Spiner/spiner';
 import { List } from './ListItem/ListItem';
 import { Filter } from './Filter/Filter';
 
-export const ContactList = ({ contacts }) => {
+export const ContactList = ({ contacts, showUpdateForm }) => {
   const dispatch = useDispatch();
   const filter = useSelector(state => state.filter.filter);
   const isLoading = useSelector(state => state.contacts.isLoading);
@@ -28,7 +28,7 @@ export const ContactList = ({ contacts }) => {
       {Object.keys(contacts).length === 0 && (
         <Error>❌ Your query did not find anything</Error>
       )}
-      <List contacts={visualContacts} />
+      <List contacts={visualContacts} showUpdateForm={showUpdateForm} />
     </Box>
   );
 };

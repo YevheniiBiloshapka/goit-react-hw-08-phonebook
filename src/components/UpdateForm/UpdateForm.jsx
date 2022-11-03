@@ -1,50 +1,72 @@
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateContact } from 'components/redux/contacts/contacts-operation';
+import {
+  Button,
+  Input,
+  Label,
+  FormBox,
+  Error,
+  Box,
+  BtnExit,
+  BackDrop,
+} from './UpdateForm.styled';
+import { Formik, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { InputNumber } from 'components/InputNumber/InputNumber';
+import { ImCross } from 'react-icons/im';
 
 export const UpdateForm = ({ contacts, closeForm }) => {
-  const [name, setName] = useState(contacts.name);
-  const [number, setNumber] = useState(contacts.number);
-
   const dispatch = useDispatch();
-
-  const handleChange = ({ target: { name, value } }) => {
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-      default:
-        break;
-    }
+  const initialValues = {
+    name: contacts.name,
+    number: contacts.number,
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const handleSubmit = ({ name, number }, { resetForm }) => {
     dispatch(updateContact({ ...contacts, name, number }));
-    setName('');
-    setNumber('');
     closeForm();
+    resetForm();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name:{' '}
-        <input type="text" name="name" onChange={handleChange} value={name} />
-      </label>
-      <label>
-        Number:{' '}
-        <input
-          type="text"
-          name="number"
-          onChange={handleChange}
-          value={number}
-        />
-      </label>
-      <button>Save</button>
-    </form>
+    <BackDrop>
+      <Box>
+        <h2>Edit Contact</h2>
+        <BtnExit onClick={closeForm}>
+          <ImCross />
+        </BtnExit>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={schema}
+        >
+          <FormBox action="">
+            <Label htmlFor="name">
+              <p>Name</p>
+              <Input
+                name="name"
+                type="text"
+                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                placeholder="Enter name"
+              />
+              <ErrorMessage name="name">
+                {() => <Error>Name must be at least 4 characters</Error>}
+              </ErrorMessage>
+            </Label>
+            <Label htmlFor="number">
+              <p>Number</p>
+              <InputNumber />
+            </Label>
+            <Button type="submit">Save</Button>
+          </FormBox>
+        </Formik>
+      </Box>
+    </BackDrop>
   );
 };
+
+let schema = Yup.object().shape({
+  name: Yup.string().min(4).max(32).required(),
+  number: Yup.string().required('Required'),
+});

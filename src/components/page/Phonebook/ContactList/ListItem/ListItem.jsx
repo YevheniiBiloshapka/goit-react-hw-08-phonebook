@@ -2,21 +2,10 @@ import { ItemList, Item, Button, ButtonBox } from './ListItem.styled';
 import { ImBin, ImPencil } from 'react-icons/im';
 import { useDispatch } from 'react-redux';
 import { deleteContacts } from 'components/redux/contacts/contacts-operation';
-import { useState } from 'react';
-import { UpdateForm } from 'components/UpdateForm/UpdateForm';
 
-export const List = ({ contacts }) => {
+export const List = ({ contacts, showUpdateForm }) => {
   const dispatch = useDispatch();
-  const [contactToUpdate, setContactToUpdate] = useState(null);
 
-  const showUpdateForm = userId => {
-    const contact = contacts.find(({ id }) => id === userId);
-    setContactToUpdate(contact);
-  };
-
-  const closeForm = () => {
-    setContactToUpdate(null);
-  };
   return (
     <ItemList>
       {contacts.map(({ id, name, number }) => (
@@ -32,9 +21,6 @@ export const List = ({ contacts }) => {
               <ImBin />
             </Button>
           </ButtonBox>
-          {contactToUpdate && contactToUpdate.id === id && (
-            <UpdateForm contacts={contactToUpdate} closeForm={closeForm} />
-          )}
         </Item>
       ))}
     </ItemList>

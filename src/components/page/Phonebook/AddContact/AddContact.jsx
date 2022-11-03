@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from 'components/redux/contacts/contacts-operation';
 import { messageError } from 'components/messageNotify/message';
-import { InputNumber } from '../../../InputNumber/InputNumber';
+import { InputNumber } from 'components/InputNumber/InputNumber';
 
 export const AddContact = () => {
   const dispatch = useDispatch();
